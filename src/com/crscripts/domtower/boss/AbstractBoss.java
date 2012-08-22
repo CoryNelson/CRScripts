@@ -18,13 +18,13 @@ import org.powerbot.game.api.wrappers.interactive.NPC;
  */
 public abstract class AbstractBoss extends Methods {
 
-	protected final Protect prayer;
+	protected final Protect protect;
 	protected final int[] bossIds;
 	protected boolean attack;
 	protected NPC boss;
 
-	public AbstractBoss(Protect prayer, int... bossIds) {
-		this.prayer = prayer;
+	public AbstractBoss(Protect protect, int... bossIds) {
+		this.protect = protect;
 		this.bossIds = bossIds;
 	}
 
@@ -42,22 +42,13 @@ public abstract class AbstractBoss extends Methods {
 					}
 				}
 			}
-			if (Pray.getPoints() > 200) {
-				if (!Pray.prayerActive(19))
-					Pray.toggle(19);
-				if (!Pray.prayerActive(prayer.getId()))
-					Pray.toggle(prayer.getId());
-			} else {
-				for (int i = 0; i < 2; i++) {
-					consume(Consumables.PRAY_POT);
-					attack = true;
-				}
-			}
-			if (needToEat()) {
-				for (int i = 0; i < 2; i++) {
-					consume(Consumables.FOOD);
-					attack = true;
-				}
+			if(protect != null && protect != Protect.NONE) {
+				if (prayerIsLow() && consume(2, Consumables.PRAY_POT))
+						attack = true;
+				if (hpIsLow() && consume(2, Consumables.FOOD))
+						attack = true;
+				if (!Pray.prayerActive(protect.getId()))
+					Pray.toggle(protect.getId());
 			}
 		} else
 			boss = NPCs.getNearest(bossIds);

@@ -22,11 +22,23 @@ public class Methods {
 
 	public static boolean consumed = false;
 
-	protected boolean needToEat() {
-		int hp = Integer.parseInt(Widgets.get(748, 8).getText());
-		double percent = ((double) hp / (double) (Skills.getRealLevel(Skills.CONSTITUTION) * 10)) * 100;
+	protected boolean hpIsLow() {
+		int ch = Integer.parseInt(Widgets.get(748, 8).getText());
+		double percent = getPercent(ch, Skills.CONSTITUTION, 10);
 		double eatAt = (Skills.getLevel(Skills.CONSTITUTION) * 0.6);
 		return (percent < eatAt);
+	}
+
+	protected boolean prayerIsLow() {
+		int cp = Integer.parseInt(Widgets.get(749, 6).getText());
+		double percent = getPercent(cp, Skills.PRAYER, 10);
+		double eatAt = (Skills.getLevel(Skills.PRAYER) * 0.4);
+		return (percent < eatAt);
+	}
+
+	protected double getPercent(int lvl, int skill, int boost) {
+		double realLvl = Skills.getRealLevel(Skills.PRAYER) * boost;
+		return ((double)lvl / realLvl) * 100;
 	}
 
 	protected boolean walkToAndClick(String action, int... id) {
@@ -44,7 +56,7 @@ public class Methods {
 		return false;
 	}
 
-	protected boolean consume(int... id) {
+	protected boolean consume(int amt, int... id) {
 		for (int i : id) {
 			for (Item s : Inventory.getItems()) {
 				if (s.getId() == i) {
