@@ -29,9 +29,7 @@ public abstract class AbstractBoss extends Methods {
 	}
 
 	protected void run() {
-		if ((boss == null || !boss.validate()))
-			boss = NPCs.getNearest(bossIds);
-		else {
+		if(validate()) {
 			if (attack || Players.getLocal().getInteracting() == null) {
 				attack = false;
 				if (!boss.isOnScreen())
@@ -61,7 +59,13 @@ public abstract class AbstractBoss extends Methods {
 					attack = true;
 				}
 			}
-		}
+		} else
+			boss = NPCs.getNearest(bossIds);
+
+	}
+
+	protected boolean validate() {
+		return boss != null && boss.validate();
 	}
 
 	protected boolean resetProgress() {

@@ -17,7 +17,7 @@ public class TarnRazorlor extends AbstractBoss {
 
 	protected void run() {
 		super.run();
-		if (boss != null && boss.validate()) {
+		if(validate()) {
 			if (!Pray.prayerActive(19))
 				Pray.toggle(19);
 		}
