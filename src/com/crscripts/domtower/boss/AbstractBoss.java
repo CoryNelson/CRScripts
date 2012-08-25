@@ -65,9 +65,9 @@ public abstract class AbstractBoss extends Methods {
 		return boss != null && boss.validate();
 	}
 
-	protected boolean resetProgress() {
+	public boolean resetProgress() {
 		return (NO_FOOD.isActive() || NO_PRAYERS.isActive());
 	}
 
-	protected abstract int[] getNeededItems();
+	public abstract int[] getNeededItems();
 }

@@ -17,13 +17,13 @@ public class TarnRazorlor extends AbstractBoss {
 
 	protected void run() {
 		super.run();
-		if(validate()) {
+		if (validate()) {
 			if (!Pray.prayerActive(19))
 				Pray.toggle(19);
 		}
 	}
 
-	protected int[] getNeededItems() {
+	public int[] getNeededItems() {
 		return null;
 	}
 }

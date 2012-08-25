@@ -1,5 +1,7 @@
 package com.crscripts.domtower.boss;
 
+import com.crscripts.domtower.boss.bosses.TarnRazorlor;
+
 import java.util.HashMap;
 
 /**
@@ -11,7 +13,7 @@ public class BossHandler {
 	private static HashMap<String, AbstractBoss> bosses = new HashMap<String, AbstractBoss>();
 
 	public static void loadBosses() {
-
+		bosses.put("Tarn Razorlor", new TarnRazorlor());
 	}
 
 	public static AbstractBoss getBoss(String boss) {
