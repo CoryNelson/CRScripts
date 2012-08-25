@@ -11,11 +11,7 @@ import java.util.LinkedList;
  */
 public class Actions extends Strategy implements Runnable {
 
-	private final LinkedList queue;
-
-	{
-		queue = new LinkedList();
-	}
+	private final LinkedList queue = new LinkedList();
 
 	public boolean validate() {
 		return !queue.isEmpty();
