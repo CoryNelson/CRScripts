@@ -12,9 +12,11 @@ import org.powerbot.game.api.Manifest;
 @Manifest(name = "CRPker", authors = {"Cory"})
 public class CRPker extends ActiveScript {
 
+	private DetectSetup detectSetup;
+
 	protected void setup() {
-		submit(new DetectSetup());
-		provide(new UseBank());
+		submit(detectSetup = new DetectSetup());
+		provide(new UseBank(this));
 		provide(new EnterWild());
 		provide(new FindOpponent());
 		provide(new Consumables());
@@ -23,4 +25,7 @@ public class CRPker extends ActiveScript {
 		provide(new Loot());
 	}
 
+	public DetectSetup getSetup() {
+		return detectSetup;
+	}
 }

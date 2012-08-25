@@ -24,15 +24,17 @@ public class DetectSetup extends Strategy implements Runnable {
 	public void run() {
 		for (int id : Equipment.getAppearanceIds())
 			if (id != -1)
-				equipIds.add(new PkItem(id, 1));
+				equipIds.add(new PkItem(id, 1, false));
 		for (Item item : Inventory.getItems()) {
 			if (item == null || item.getId() == -1)
 				continue;
 			PkItem pkItem = get(invItems, item.getId());
 			if (pkItem == null)
-				invItems.add(new PkItem(item.getId(), item.getStackSize()));
-			else
+				invItems.add(new PkItem(item.getId(), item.getStackSize(), true));
+			else {
+				pkItem.stacks = false;
 				pkItem.amt += item.getStackSize();
+			}
 		}
 	}
 
@@ -46,10 +48,12 @@ public class DetectSetup extends Strategy implements Runnable {
 	public class PkItem {
 		public int id;
 		public int amt;
+		public boolean stacks;
 
-		public PkItem(int id, int amt) {
+		public PkItem(int id, int amt, boolean stacks) {
 			this.id = id;
 			this.amt = amt;
+			this.stacks = stacks;
 		}
 	}
 }
