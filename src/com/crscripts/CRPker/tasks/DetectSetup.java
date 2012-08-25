@@ -23,8 +23,11 @@ public class DetectSetup extends Strategy implements Runnable {
 
 	public void run() {
 		for (int id : Equipment.getAppearanceIds())
-			equipIds.add(new PkItem(id, 1));
+			if (id != -1)
+				equipIds.add(new PkItem(id, 1));
 		for (Item item : Inventory.getItems()) {
+			if (item == null || item.getId() == -1)
+				continue;
 			PkItem pkItem = get(invItems, item.getId());
 			if (pkItem == null)
 				invItems.add(new PkItem(item.getId(), item.getStackSize()));
